@@ -23,3 +23,4 @@ int main(){
     if(pos == -1) cout << b[n];
     else cout << b[pos];
 }
+// testing for github
