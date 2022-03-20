@@ -6,6 +6,8 @@ const string num[13] = {"2","3","4","5","6","7","8","9","10", "J","Q","K","A"};
 const int chat[4] = {262,261,260,259}; // chat tang dan
 int boBai[52];
 vector <int> boBaibandau;
+int boBaiNguoiChoitemp[4][13];
+
 
 string inQuanBai(int khoa);
 
@@ -13,15 +15,26 @@ bool uuTienHon(int khoa1, int khoa2);
 
 void traoBai(int *boBai);
 
+void chiaBai(int *boBai, int **boBainguoiChuoi);
+
+void inBoBaiNguoiChoi(int *boBaiNguoiChoi);
+
 //----------------------------------------
 
 int main()
 {
     for(int i = 0; i < 52; i++) boBaibandau.push_back(i);
     traoBai(boBai);
-    sort(boBai, boBai+52);
-    for(int i:boBai) cout << i << " ";
-
+    // convert array to pointer
+    int *temp[4];
+    for(int i = 0; i < 4; i++) temp[i] = boBaiNguoiChoitemp[i];
+    int ** boBaiNguoiChoi = temp;
+    chiaBai(boBai, boBaiNguoiChoi);
+    for(int i = 0; i <= 3; i++){
+        cout << "Player " << i + 1 << "'s card is: ";
+        inBoBaiNguoiChoi(boBaiNguoiChoi[i]);
+        cout << endl;
+    }
 }
 
 //----------------------------------------
@@ -64,5 +77,23 @@ void traoBai(int* boBai)
     // B3: Done
 }
 
+void chiaBai(int *boBai, int **boBaiNguoiChoi)
+{
+    int j = 0;
+    for(int i = 0; i < 4; i++){
+        for(int k = 0; k < 13; k++){
+            boBaiNguoiChoi[i][k] = boBai[j];
+            j++;
+        }
+    }
+}
+
+void inBoBaiNguoiChoi(int *boBaiNguoiChoi)
+{
+    for(int i = 0; i < 13; i++){
+        cout << inQuanBai(boBaiNguoiChoi[i]) << " ";
+    }
+    cout << endl;
+}
 
 
