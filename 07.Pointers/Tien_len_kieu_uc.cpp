@@ -5,14 +5,11 @@ using namespace std;
 const string num[13] = {"2","3","4","5","6","7","8","9","10", "J","Q","K","A"};
 const int chat[4] = {262,261,260,259}; // chat tang dan
 int boBai[52];
-vector <int> boBaidaTrao;
-int a[4][13];
+vector <int> boBaibandau;
 
 string inQuanBai(int khoa);
 
 bool uuTienHon(int khoa1, int khoa2);
-
-bool kiemtra(vector<int> boBaidaTrao, int a);
 
 void traoBai(int *boBai);
 
@@ -20,8 +17,10 @@ void traoBai(int *boBai);
 
 int main()
 {
+    for(int i = 0; i < 52; i++) boBaibandau.push_back(i);
     traoBai(boBai);
-    for(int i = 0; i < 52; i++) cout << boBai[i] << " ";
+    sort(boBai, boBai+52);
+    for(int i:boBai) cout << i << " ";
 
 }
 
@@ -49,30 +48,21 @@ bool uuTienHon(int khoa1, int khoa2)
     }
 }
 
-bool kiemtra(vector<int> boBaidaTrao, int a){
-    bool temp = true;
-    for(int i = 0; i < boBaidaTrao.size(); i++){
-        if(a == boBaidaTrao[i]){
-            temp = false;
-            break;
-        }
-    }
-    return temp;
-}
-
 void traoBai(int* boBai)
 {
     srand(time(0));
-    boBai[0] = rand() % 52;
-    boBaidaTrao.push_back(boBai[0]);
-    for(int i = 1; i < 52; i++){
-        do{
-            boBai[i] = rand() % 52;
-        }while(kiemtra(boBaidaTrao,boBai[i]) == false);
-        boBaidaTrao.push_back(boBai[i]);
+    int i = 0;
+    while(boBaibandau.size() > 0){
+        int temp = rand() % boBaibandau.size();
+        boBai[i] = boBaibandau[temp];
+        i++;
+        boBaibandau.erase(boBaibandau.begin()+temp);
     }
+    // 2 mang vector, 1 mang vector 52 phan tu 0-51, 1 mang vector trao bai
+    // B1: Lay random 1 phan tu cua mang 1 push_back vao mang 2 (Xoa phan tu do khoi mang 1)
+    // B2: Lay random 1 phan tu mang 1 theo kich thuoc con lai cua no cho den khi con 1 phan tu
+    // B3: Done
 }
-// 2 mang vector, 1 mang vector 52 phan tu 0-51, 1 mang vector trao bai
-// B1: Lay random 1 phan tu cua mang 1 push_back vao mang 2 (Xoa phan tu do khoi mang 1)
-// B2: Lay random 1 phan tu mang 1 theo kich thuoc con lai cua no cho den khi con 1 phan tu
-// B3: Done
+
+
+
