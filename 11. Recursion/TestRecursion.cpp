@@ -2,10 +2,8 @@
 
 using namespace std;
 
-int main()
+int finding_LCS(string s, string t)
 {
-    string t = "ABCDEF";
-    string s = "AFBCDEF";
     const int m = s.length();
     const int n = t.length();
     vector<vector <int>> opt;
@@ -17,6 +15,14 @@ int main()
             else opt[i][j] = max(opt[i+1][j], opt[i][j+1]);
         }
     }
-    cout << opt[0][0];
+    return opt[0][0];
+}
+
+int main()
+{
+    string s, t;
+    cin >> s >> t;
+    cout << finding_LCS(s, t);
+
 }
 
